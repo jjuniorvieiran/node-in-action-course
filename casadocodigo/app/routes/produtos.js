@@ -1,16 +1,12 @@
-
-
 module.exports = function(app){
-    app.get('/produtos', function(req,res){
+    app.get('/produtos',function(req,res){
+        var connection = app.infra.connectionFactory();
+        var produtosBanco = app.infra.produtosBanco;
 
-    var connection = app.infra.connectionFactory();;
+      produtosBanco.lista(connection, function(erros,resultados){
+            res.render('produtos/lista',{lista:resultados});
 
-      connection.query('select * from livros',function(err,results){
-          res.render('produtos/lista', {lista:results});
-          //res.send(results);
-      });
-
-      connection.end();
-
+       });
+        connection.end();
     });
 }

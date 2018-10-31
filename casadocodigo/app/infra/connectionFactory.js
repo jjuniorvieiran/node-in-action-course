@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 
-module.exports = function(){
+function createDBConnection(){
     return mysql.createConnection({
                 host:'localhost',
                 user:'root',
@@ -8,4 +8,9 @@ module.exports = function(){
                 database:'casadocodigo_nodejs'
           });
 
+}
+
+//wrapper > to be load just when called
+module.exports = function(){
+    return createDBConnection;
 }

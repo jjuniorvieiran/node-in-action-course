@@ -1,6 +1,6 @@
 module.exports = function(app){
 
-    app.get('/produtos',function(req,res){
+    var listaProdutos = function(req,res){
         var connection = app.infra.connectionFactory();
         var produtosBanco = new app.infra.ProdutosDAO(connection); //paremeter to the object productBanco
 
@@ -8,14 +8,16 @@ module.exports = function(app){
             res.render('produtos/lista',{lista:resultados});
             });
         connection.end();
-    });
+    };
 
+
+	app.get('/produtos', listaProdutos);
 
     app.get('/produtos/form',function(req,res){
 	    res.render('produtos/form');
 	});
 
-	app.post('/produtos/salva', function(req, res){
+	app.post('/produtos', function(req, res){
 
 	  	var produto = req.body;
 	  	console.log(produto);

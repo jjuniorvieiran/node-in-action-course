@@ -30,16 +30,20 @@ module.exports = function(app){
 	  	var produto = req.body;
 	  	console.log(produto);
 
-
 		req.assert('titulo','Titulo é obrigatório').notEmpty();
 		req.assert('preco','Formato inválido').isFloat();
 
-
 	    var erros = req.validationErrors();
-
 	    if(erros){
 	    	console.log(erros);
-	        res.render('produtos/form', { errosValidacao : erros, produto : produto});
+	    	res.format({
+			    html: function(){
+			        res.status(400).render('produtos/form',{errosValidacao:erros,produto:produto});
+			    },
+			    json: function(){
+			        res.status(400).json(erros);
+			    }
+			});
     		return;
 	    }
 

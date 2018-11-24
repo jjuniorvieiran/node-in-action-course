@@ -17,9 +17,13 @@ module.exports = function(app){
 	    connection.end();
 	});
 
+
+
     app.get('/produtos/form',function(req,res){
-	    res.render('produtos/form');
+	    res.render('produtos/form', {errosValidacao: {}, produto: {}})
 	});
+
+
 
 	app.post('/produtos', function(req, res){
 
@@ -35,8 +39,8 @@ module.exports = function(app){
 
 	    if(erros){
 	    	console.log(erros);
-	        res.render('produtos/form',{errosValidacao : erros});
-	        return;
+	        res.render('produtos/form', { errosValidacao : erros, produto : produto});
+    		return;
 	    }
 
 	   	var connection = app.infra.connectionFactory();

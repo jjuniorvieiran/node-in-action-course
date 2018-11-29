@@ -1,16 +1,28 @@
-var mysql = require('mysql');
 
-function createDBConnection(){
-    return mysql.createConnection({
+
+var mysql = require('mysql');
+var connectMYSQL = function(){
+
+    if(!process.env.NODE_ENV) {
+        return mysql.createConnection({
                 host:'localhost',
                 user:'root',
                 password:'password',
                 database:'casadocodigo_nodejs'
-          });
+        });
+    }
 
-}
+    if(process.env.NODE_ENV == 'test') {
+        return mysql.createConnection({
+                host:'localhost',
+                user:'root',
+                password:'password',
+                database:'casadocodigo_nodejs_test'
+        });
+    }
+};
 
 //wrapper > to be load just when called
 module.exports = function(){
-    return createDBConnection;
+    return connectMYSQL;
 }

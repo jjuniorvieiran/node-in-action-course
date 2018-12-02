@@ -7,6 +7,8 @@ var expressValidator = require('express-validator');
 module.exports = function() {
 
     var app = express();
+
+    app.use(express.static('./app/public')); //express usa isso para importar os files staticos
     app.set('view engine', 'ejs');
     app.set('views', './app/views');
 
@@ -20,6 +22,3 @@ module.exports = function() {
 
     return app;
 };
-
-
-

@@ -8,7 +8,7 @@ var connectMYSQL = function(){
                 host:'localhost',
                 user:'root',
                 password:'password',
-                database:'casadocodigo_nodejs'
+                database:'casadocodigo_nodejs22'
         });
     }
 
